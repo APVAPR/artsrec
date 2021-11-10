@@ -14,7 +14,6 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 import django_heroku
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -85,8 +84,8 @@ WSGI_APPLICATION = 'artsrec.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'USER': 'vizutuilliiull',
         'NAME': 'd922115jo0tdlk',
+        'USER': 'vizutuilliiull',
         'PASSWORD': 'ccdc3e23b0f3c246cddfd4911d2c3327f0716f7de72766aba3c3cbb5ea20fe71',
         'HOST': 'ec2-176-34-222-188.eu-west-1.compute.amazonaws.com',
         'PORT': '5432'
@@ -132,9 +131,10 @@ USE_TZ = True
 
 # STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = "/static/"
 django_heroku.settings(locals())
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
