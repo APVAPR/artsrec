@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: ginicorn artsrec.wsgi --log-file=-
+web: gunicorn artsrec.wsgi --log-file=-
