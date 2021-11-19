@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-menu = ['Home', 'Books', 'Films', 'Games']
+menu = ['Home', 'Books', 'Films', 'Games', 'Add recommendation']
 posts = [
     {'title': 'Анна Каренина', 'content': '''Как и добрая половина рецензентов, 
     оставивших отзывы к этому изданию, "Анну Каренину" не брала в руки со школьных времен, 

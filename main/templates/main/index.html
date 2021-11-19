@@ -7,7 +7,7 @@
 				<div class="row justify-content-between">
 					<div class="col-lg-6 col-xl-5 justify-content-center">
 {#                    <div class="col-lg-6 col-xl-5 d-flex justify-content-center">#}
-						<img src={% static 'main/images/1.jpg' %} srcset={% static 'main/images/1.jpg' %} alt="" class="w-full" data-aos="fade-down" data-aos-delay="0">
+						<img src={% static posts.2.image%} alt={{ posts.2.title }} class="w-full" data-aos="fade-down" data-aos-delay="500">
 					</div>
 					<div class="col-lg-6 pt-100 pb-100">
 						<div class="mb-15 d-flex color-heading f-18" data-aos="fade-down" data-aos-delay="300">
@@ -25,10 +25,10 @@
 							</div>
 						</div>
 						<h3 class="mb-25" data-aos="fade-down" data-aos-delay="600">
-                            {{ posts.1.title }}
+                            {{ posts.2.title }}
 						</h3>
 						<div class="mb-70 color-heading f-18 text-adaptive" data-aos="fade-down" data-aos-delay="900">
-                            {{ posts.1.content}}
+                            {{ posts.2.content}}
 						</div>
 						<div class="d-sm-flex justify-content-between" data-aos="fade-down" data-aos-delay="1200">
 							<a href="#" class="mb-sm-0 btn f-16 lg action-2" data-aos="slide-up" data-aos-delay="300">
@@ -61,5 +61,6 @@
 					</div>
 				</div>
 			</div>
+{#            </div>#}
 		</section>
 {% endblock %}
