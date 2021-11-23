@@ -20,18 +20,19 @@ class Post(models.Model):
     date_create = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     title_post = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name='Название')
     content = models.TextField(blank=True, verbose_name="Текст статьи")
+    # image_preview = models.ForeignKey('Image', on_delete=models.SET_NULL, null=True, verbose_name='Изображение')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}: {self.title_post}'
 
     def get_absolute_url(self):
-        return reverse('post', kwargs={'slug': self.slug})
+        return reverse('post', kwargs={'username': self.user_id, 'slug': self.slug})
 
     class Meta:
         verbose_name = 'Рекомендация'
         verbose_name_plural = 'Рекомендации'
-        ordering = ['id']
+        ordering = ['date_create']
 
 
 class Item(models.Model):
@@ -41,7 +42,7 @@ class Item(models.Model):
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
 
     def __str__(self):
-        return f'{self.title} {self.author}'
+        return f'{self.author}: {self.title}'
 
     class Meta:
         verbose_name = 'Название контента'
@@ -58,3 +59,4 @@ class Image(models.Model):
     class Meta:
         verbose_name = 'Изображение'
         verbose_name_plural = 'Изображения'
+        ordering = ['post']

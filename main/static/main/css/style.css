@@ -20,6 +20,12 @@
 	16. Applications
 */
 /* 1. Common styles */
+.col-lg-6 a{
+  text-decoration: auto;
+}
+a {
+  text-decoration: none;
+}
 body {
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-weight: 400;
@@ -64,7 +70,10 @@ nav.transparent {
 a, button {
   cursor: pointer;
   transition: all 0.25s;
+  text-decoration: none;
+
 }
+
 a:hover, button:hover {
   text-decoration: none;
 }
@@ -818,3 +827,5 @@ b, strong {
     border-bottom: 2px solid #EBEAED;
   }
 }
+
+

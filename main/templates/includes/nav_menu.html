@@ -1,0 +1,32 @@
+{% load static %}
+
+
+<nav class="pt-30 pb-30 bg-light text-center navigation_1">
+    <div class="container px-xl-0">
+        <div class="row justify-content-center align-items-center f-16">
+            <div class="mb-20 mb-lg-0 col-lg-3 text-lg-left">
+                <a href="#" class="link img_link h-20 w-40">
+                    <img src={% static 'main/images/logo.png' %} class="img-fluid" data-aos="fade-down" data-aos-delay="300" srcset={% static 'main/images/logo.png' %} alt="Logo">
+                </a>
+            </div>
+            <div class="col-lg-6" data-aos="fade-down" data-aos-delay="100">
+                {% for button in nav_buttons %}
+                <a href="{% url 'categories' %}" class="link mx-15 color-main" data-aos="zoom-in-right" data-aos-delay={% cycle 200 400 600 800 1000 %}>
+                    {{ button }}
+                </a>
+                {% endfor %}
+                <a href="#" class="mx-15 link color-main">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+            <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="300">
+                <a href="#" class="link mr-20 color-main">
+                    Sign In
+                </a>
+                <a href="#" class="btn mr-20 sm action-2 f-16">
+                    Sign Up
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
