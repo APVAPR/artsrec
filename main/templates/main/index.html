@@ -1,0 +1,206 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block main_last_posts %}
+    {% include 'includes/nav_menu.html' %}
+    <section class="bg-light blog_1">
+			<div class="container px-xl-0">
+
+				<div class="row justify-content-between">
+					<div class="col-lg-6 col-xl-5 justify-content-center">
+{#                    <div class="col-lg-6 col-xl-5 d-flex justify-content-center">#}
+						<img src={{ last_post_photo.url }} alt={{ last_post.title_post}} class="w-full" data-aos="fade-down" data-aos-delay="500">
+					</div>
+					<div class="col-lg-6 pt-100 pb-100">
+						<div class="mb-15 d-flex color-heading f-18" data-aos="fade-down" data-aos-delay="300">
+							<div>
+								by&nbsp;
+							</div>
+							<a href="#" class="link color-heading">
+								{{ last_post.user.first_name }} {{ last_post.user.last_name  }}
+							</a>
+							<div class="pr-10 pl-10">
+								·
+							</div>
+							<div>
+								{{ last_post.date_create }}
+							</div>
+						</div>
+						<h3 class="mb-25" data-aos="fade-down" data-aos-delay="600">
+                            {{ last_post.title_post }}
+						</h3>
+						<div class="mb-70 color-heading f-18 text-adaptive" data-aos="fade-down" data-aos-delay="900">
+                            {{ last_post.content|truncatewords:50}}
+						</div>
+						<div class="d-sm-flex justify-content-between" data-aos="fade-down" data-aos-delay="1200">
+							<a href="#" class="mb-sm-0 btn f-16 lg action-2" data-aos="slide-up" data-aos-delay="300">
+								read more
+							</a>
+							<div class="d-flex align-items-center f-16">
+								<a href="#" class="mr-20 link color-heading d-flex align-items-center">
+									<div>
+										22
+									</div>
+									<i class="ml-10 f-20 far fa-heart">
+									</i>
+								</a>
+								<a href="#" class="mr-20 link color-heading d-flex align-items-center">
+									<div>
+										32
+									</div>
+									<i class="ml-10 f-20 far fa-comment-alt">
+									</i>
+								</a>
+								<a href="#" class="link color-heading d-flex align-items-center">
+									<div>
+										28
+									</div>
+									<i class="ml-10 f-20 fas fa-share">
+									</i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+{#            </div>#}
+		</section>
+{% endblock %}
+{% block content %}
+<!-- Blog 2 -->
+			<section class="pt-100 pb-70 bg-light blog_2">
+				<div class="container px-xl-0" data-aos="fade" data-aos-delay="0">
+					<h3 class="mb-15" data-aos="fade-down" data-aos-delay="0">
+						Последние добавленные рекомендации
+					</h3>
+					<div class="row">
+
+						<div class="col-lg-6">
+							<div class="row">
+                                {% for p in posts %}
+								    <div class="mb-30 col-12 h-270" data-aos="fade-down" data-aos-delay="300">
+
+                                        {% for i in image %}
+                                            {% if p.pk == i.post_id %}
+									            <div class="h-full bg-dark color-filter-dark-4 px-30 pt-30 pb-30 radius10 overflow-hidden d-flex flex-column justify-content-between" data-bg-src={{ i.photo.url }} data-bg-src-2x={{ i.photo.url }}>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <div class="d-flex justify-content-end relative">
+											<a href="#" class="pl-15 pr-15 bg-white link color-main f-14 lh-30 bold text-uppercase sp-20 radius10">
+												{{ p.user.first_name }} {{ p.user.last_name }}
+											</a>
+										</div>
+										<a href="#" class="link color-white relative">
+											<div class="mb-20 f-22 medium text-adaptive">
+                                                {{ p.title_post|truncatechars:20}}
+											</div>
+											<div class="f-14 bold text-uppercase sp-20">
+                                                {{ p.date_create }}
+											</div>
+										</a>
+									</div>
+								</div>
+{#								<div class="mb-30 col-12 col-sm-6 h-390 block-thin" data-aos="fade-down" data-aos-delay="600">#}
+{#									<div class="h-full bg-dark color-filter-dark-4 px-30 pt-30 pb-30 radius10 overflow-hidden d-flex flex-column justify-content-between" data-bg-src="i/blog_2_img_2.jpg" data-bg-src-2x="i/blog_2_img_2@2x.jpg">#}
+{#										<div class="d-flex justify-content-end relative">#}
+{#											<a href="#" class="pl-15 pr-15 bg-white link color-main f-14 lh-30 bold text-uppercase sp-20 radius10">#}
+{#												Mountain#}
+{#											</a>#}
+{#										</div>#}
+{#										<a href="#" class="link color-white relative">#}
+{##}
+{#											<div class="mb-20 f-22 medium text-adaptive">#}
+{#												How to Find a Job Teaching in Spain#}
+{#											</div>#}
+{#											<div class="f-14 bold text-uppercase sp-20">#}
+{#												Jul 12, 2021#}
+{#											</div>#}
+{#										</a>#}
+{#									</div>#}
+{#								</div>#}
+{#								<div class="mb-30 col-12 col-sm-6 h-390 block-thin" data-aos="fade-down" data-aos-delay="900">#}
+{#									<div class="h-full bg-dark color-filter-dark-4 px-30 pt-30 pb-30 radius10 overflow-hidden d-flex flex-column justify-content-between" data-bg-src="i/blog_2_img_3.jpg" data-bg-src-2x="i/blog_2_img_3@2x.jpg">#}
+{#										<div class="d-flex justify-content-end relative">#}
+{#											<a href="#" class="pl-15 pr-15 bg-white link color-main f-14 lh-30 bold text-uppercase sp-20 radius10">#}
+{#												Mountain#}
+{#											</a>#}
+{#										</div>#}
+{#										<a href="#" class="link color-white relative">#}
+{##}
+{#											<div class="mb-20 f-22 medium text-adaptive">#}
+{#												How to Teach English in Japan#}
+{#											</div>#}
+{#											<div class="f-14 bold text-uppercase sp-20">#}
+{#												Jul 12, 2021#}
+{#											</div>#}
+{#										</a>#}
+{#									</div>#}
+{#								</div>#}
+{#							</div>#}
+{#						</div>#}
+{#						<div class="col-lg-6">#}
+{#							<div class="row">#}
+{#								<div class="mb-30 col-12 col-sm-6 h-390 block-thin" data-aos="fade-down" data-aos-delay="1200">#}
+{#									<div class="h-full bg-dark color-filter-dark-4 px-30 pt-30 pb-30 radius10 overflow-hidden d-flex flex-column justify-content-between" data-bg-src="i/blog_2_img_4.jpg" data-bg-src-2x="i/blog_2_img_4@2x.jpg">#}
+{#										<div class="d-flex justify-content-end relative">#}
+{#											<a href="#" class="pl-15 pr-15 bg-white link color-main f-14 lh-30 bold text-uppercase sp-20 radius10">#}
+{#												Mountain#}
+{#											</a>#}
+{#										</div>#}
+{#										<a href="#" class="link color-white relative">#}
+{##}
+{#											<div class="mb-20 f-22 medium text-adaptive">#}
+{#												5 Myths About Booking a Flight#}
+{#											</div>#}
+{#											<div class="f-14 bold text-uppercase sp-20">#}
+{#												Jul 12, 2021#}
+{#											</div>#}
+{#										</a>#}
+{#									</div>#}
+{#								</div>#}
+{#								<div class="mb-30 col-12 col-sm-6 h-390 block-thin" data-aos="fade-down" data-aos-delay="1500">#}
+{#									<div class="h-full bg-dark color-filter-dark-4 px-30 pt-30 pb-30 radius10 overflow-hidden d-flex flex-column justify-content-between" data-bg-src="i/blog_2_img_5.jpg" data-bg-src-2x="i/blog_2_img_5@2x.jpg">#}
+{#										<div class="d-flex justify-content-end relative">#}
+{#											<a href="#" class="pl-15 pr-15 bg-white link color-main f-14 lh-30 bold text-uppercase sp-20 radius10">#}
+{#												Mountain#}
+{#											</a>#}
+{#										</div>#}
+{#										<a href="#" class="link color-white relative">#}
+{##}
+{#											<div class="mb-20 f-22 medium text-adaptive">#}
+{#												My 4 Favorite Hostels in Toronto#}
+{#											</div>#}
+{#											<div class="f-14 bold text-uppercase sp-20">#}
+{#												Jul 12, 2021#}
+{#											</div>#}
+{#										</a>#}
+{#									</div>#}
+{#								</div>#}
+{#								<div class="mb-30 col-12 h-270" data-aos="fade-down" data-aos-delay="1800">#}
+{#									<div class="h-full bg-dark color-filter-dark-4 px-30 pt-30 pb-30 radius10 overflow-hidden d-flex flex-column justify-content-between" data-bg-src="i/blog_2_img_6.jpg" data-bg-src-2x="i/blog_2_img_6@2x.jpg">#}
+{#										<div class="d-flex justify-content-end relative">#}
+{#											<a href="#" class="pl-15 pr-15 bg-white link color-main f-14 lh-30 bold text-uppercase sp-20 radius10">#}
+{#												Mountain#}
+{#											</a>#}
+{#										</div>#}
+{#										<a href="#" class="link color-white relative">#}
+{##}
+{#											<div class="mb-20 f-22 medium text-adaptive">#}
+{#												12 Things to See and Do in#}
+{#												<br>Bergen, Norway#}
+{#											</div>#}
+{#											<div class="f-14 bold text-uppercase sp-20">#}
+{#												Jul 12, 2021#}
+{#											</div>#}
+{#										</a>#}
+{#									</div>#}
+{#								</div>#}
+							</div>
+                                {% endfor %}
+						</div>
+					</div>
+				</div>
+			</section>
+{%  include 'includes/footer.html' %}
+{% endblock %}
+
