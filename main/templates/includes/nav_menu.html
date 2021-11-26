@@ -11,8 +11,9 @@
             </div>
             <div class="col-lg-6" data-aos="fade-down" data-aos-delay="100">
                 {% for button in nav_buttons %}
-                <a href="{% url 'categories' %}" class="link mx-15 color-main" data-aos="zoom-in-right" data-aos-delay={% cycle 200 400 600 800 1000 %}>
-                    {{ button }}
+                    {% url button.url.view button.url.arg as the_url %}
+                <a href="{{ the_url }}" class="link mx-15 color-main" data-aos="zoom-in-right" data-aos-delay={% cycle 200 400 600 800 1000 %}>
+                    {{ button.title }}
                 </a>
                 {% endfor %}
                 <a href="#" class="mx-15 link color-main">
