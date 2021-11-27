@@ -4,7 +4,7 @@ from .models import *
 
 menu = [
     {'title': 'На главную', 'url':
-        {'view': 'index', 'arg': None}},
+        {'view': 'index', 'arg': ''}},
     {'title': 'Книги', 'url':
         {'view': 'categories', 'arg': 'books'}},
     {'title': 'Фильмы', 'url':
@@ -15,20 +15,21 @@ menu = [
         {'view': None, 'arg': None}}
 ]
 
-all_posts = Post.objects.all()
-last_post = Post.objects.last()
+all_posts = Post.objects.all().order_by('-date_create')
+last_post = all_posts.first()
 images = Image.objects.all()
 last_post_image = Image.objects.last().photo
 
 
 
 def index(requests):
+
     return render(requests, 'main/index.html', context={'title': 'Recommendation',
                                                         'nav_buttons': menu,
                                                         'posts': all_posts,
                                                         'last_post': last_post,
                                                         'last_post_photo': last_post_image,
-                                                        'image': images})
+                                                        'images': images})
 
 
 def post(requests, username, post):

@@ -1,11 +1,12 @@
 {% load static %}
+{% for post in posts %}
 <section class="bg-light blog_1">
 			<div class="container px-xl-0">
 
 				<div class="row justify-content-between">
 					<div class="col-lg-6 col-xl-5 justify-content-center">
 {#                    <div class="col-lg-6 col-xl-5 d-flex justify-content-center">#}
-						<img src={{ last_post_photo.url }} alt={{ last_post.title_post}} class="w-full" data-aos="fade-down" data-aos-delay="500">
+						        <img src={{ post.image_set.first.photo.url }} alt={{ post.title_post}} class="w-full" data-aos="fade-down" data-aos-delay="500">
 					</div>
 					<div class="col-lg-6 pt-100 pb-100">
 						<div class="mb-15 d-flex color-heading f-18" data-aos="fade-down" data-aos-delay="300">
@@ -13,20 +14,20 @@
 								by&nbsp;
 							</div>
 							<a href="#" class="link color-heading">
-								{{ last_post.user.first_name }} {{ last_post.user.last_name  }}
+								{{ post.user.first_name }} {{ post.user.last_name  }}
 							</a>
 							<div class="pr-10 pl-10">
 								·
 							</div>
 							<div>
-								{{ last_post.date_create }}
+								{{ post.date_create }}
 							</div>
 						</div>
 						<h3 class="mb-25" data-aos="fade-down" data-aos-delay="600">
-                            {{ last_post.title_post }}
+                            {{ post.title_post }}
 						</h3>
 						<div class="mb-70 color-heading f-18 text-adaptive" data-aos="fade-down" data-aos-delay="900">
-                            {{ last_post.content|truncatewords:50}}
+                            {{ post.content|truncatewords:50}}
 						</div>
 						<div class="d-sm-flex justify-content-between" data-aos="fade-down" data-aos-delay="1200">
 							<a href="#" class="mb-sm-0 btn f-16 lg action-2" data-aos="slide-up" data-aos-delay="300">
@@ -59,5 +60,6 @@
 					</div>
 				</div>
 			</div>
-{#            </div>#}
 		</section>
+    <br>
+{% endfor %}
