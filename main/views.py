@@ -21,6 +21,7 @@ images = Image.objects.all()
 last_post_image = Image.objects.last().photo
 
 
+
 def index(requests):
     return render(requests, 'main/index.html', context={'title': 'Recommendation',
                                                         'nav_buttons': menu,
@@ -35,6 +36,8 @@ def post(requests, username, post):
 
 
 def categories(requests, category):
-    # posts = Post.objects.filter()
-    # context = {'title': category, }
-    return render(requests, 'main/categories.html', context={'category': category})
+    posts_cat = Post.objects.filter(title_post__category__title=category)
+
+    return render(requests, 'main/categories.html',
+                  context={'posts_cat': posts_cat,
+                           'nav_buttons': menu})

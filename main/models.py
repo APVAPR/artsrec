@@ -18,7 +18,7 @@ class Category(models.Model):
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     date_create = models.DateField(auto_now_add=True, verbose_name='Дата создания')
-    title_post = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name='Название')
+    title_post = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name='Название', related_name='get_posts')
     content = models.TextField(blank=True, verbose_name="Текст статьи")
     # image_preview = models.ForeignKey('Image', on_delete=models.SET_NULL, null=True, verbose_name='Изображение')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
@@ -38,7 +38,9 @@ class Post(models.Model):
 class Item(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
     author = models.CharField(max_length=100, verbose_name='Автор')
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True, verbose_name="Категория")
+    category = models.ForeignKey(Category, on_delete=models.PROTECT,
+                                 null=True, verbose_name="Категория",
+                                 related_name='get_items')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
 
     def __str__(self):
