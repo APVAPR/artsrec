@@ -5,10 +5,10 @@
 
 				<div class="row justify-content-between">
 					<div class="col-lg-6 col-xl-5 justify-content-center">
-                        <img src={{ post.image_set.first.photo.url }} alt={{ post.title_post}} class="w-full" data-aos="fade-down" data-aos-delay="500">
+                        <img src={{ post.image_set.first.photo.url }} alt={{ post.title_post}} class="w-full" data-aos="fade-down" data-aos-delay="100">
 					</div>
 					<div class="col-lg-6 pt-100 pb-100">
-						<div class="mb-15 d-flex color-heading f-18" data-aos="fade-down" data-aos-delay="300">
+						<div class="mb-15 d-flex color-heading f-18" data-aos="fade-down" data-aos-delay="120">
 							<div>
 								by&nbsp;
 							</div>
@@ -22,15 +22,15 @@
 								{{ post.date_create }}
 							</div>
 						</div>
-						<h3 class="mb-25" data-aos="fade-down" data-aos-delay="600">
+						<h3 class="mb-25" data-aos="fade-down" data-aos-delay="200">
                             {{ post.title_post }}
 						</h3>
-						<div class="mb-70 color-heading f-18 text-adaptive" data-aos="fade-down" data-aos-delay="900">
+						<div class="mb-70 color-heading f-18 text-adaptive" data-aos="fade-down" data-aos-delay="300">
                             {{ post.content|truncatewords:50}}
 						</div>
-						<div class="d-sm-flex justify-content-between" data-aos="fade-down" data-aos-delay="1200">
+						<div class="d-sm-flex justify-content-between" data-aos="fade-down" data-aos-delay="500">
 							<a href="{{ post.get_absolute_url }}" class="mb-sm-0 btn f-16 lg action-2" data-aos="slide-up" data-aos-delay="300">
-								read more
+								Читать рекомендацию
 							</a>
 							<div class="d-flex align-items-center f-16">
 								<a href="#" class="mr-20 link color-heading d-flex align-items-center">
