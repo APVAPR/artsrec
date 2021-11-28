@@ -24,16 +24,20 @@ last_post_image = Image.objects.last().photo
 
 def index(requests):
 
-    return render(requests, 'main/index.html', context={'title': 'Recommendation',
-                                                        'nav_buttons': menu,
-                                                        'posts': all_posts,
-                                                        'last_post': last_post,
-                                                        'last_post_photo': last_post_image,
-                                                        'images': images})
+    context = {'title': 'Recommendation',
+               'nav_buttons': menu,
+               'posts': all_posts,
+               'last_post': last_post,
+               'last_post_photo': last_post_image,
+               'images': images}
+
+    return render(requests, 'main/index.html', context=context)
 
 
-def post(requests, username, post):
-    return render(requests, 'main/post.html', last_post)
+def post(requests, slug):
+    post = all_posts.get(slug=slug)
+    image = post.image_set.first()
+    return render(requests, 'main/post.html', context={'post': post, 'image': image})
 
 
 def categories(requests, category):

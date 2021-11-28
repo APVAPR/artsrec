@@ -27,7 +27,7 @@ class Post(models.Model):
         return f'{self.user.first_name} {self.user.last_name}: {self.title_post}'
 
     def get_absolute_url(self):
-        return reverse('post', kwargs={'username': self.user_id, 'slug': self.slug})
+        return reverse('post', kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = 'Рекомендация'
