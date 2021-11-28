@@ -37,7 +37,7 @@ def index(requests):
 def post(requests, slug):
     post = all_posts.get(slug=slug)
     image = post.image_set.first()
-    return render(requests, 'main/post.html', context={'post': post, 'image': image})
+    return render(requests, 'main/post.html', context={'post': post, 'image': image, 'nav_buttons': menu})
 
 
 def categories(requests, category):
