@@ -26,6 +26,7 @@ def index(requests):
 
     return render(requests, 'main/index.html', context=context)
 
+
 def registration(requests):
     return render(requests, 'main/registation.html', context={'user': 'Hello'})
 
