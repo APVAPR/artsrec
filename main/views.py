@@ -7,7 +7,7 @@ menu = [
     {'title': 'Книги', 'url': '/category/books'},
     {'title': 'Фильмы', 'url': '/category/movies'},
     {'title': 'Игры', 'url': '/category/games'},
-    {'title': 'Добавить', 'url': 'admin/main/post/'}
+    {'title': 'Добавить', 'url': '/admin/main/post/'}
 ]
 
 all_posts = Post.objects.all().order_by('-date_create')
@@ -25,6 +25,9 @@ def index(requests):
                'images': images}
 
     return render(requests, 'main/index.html', context=context)
+
+def registration(requests):
+    return render(requests, 'main/registation.html', context={'user': 'Hello'})
 
 
 def post(requests, slug):
