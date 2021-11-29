@@ -30,7 +30,7 @@ def index(requests):
 def post(requests, slug):
     read_post = all_posts.get(slug=slug)
     image = read_post.image_set.first()
-    return render(requests, 'main/post.html', context={'post': post,
+    return render(requests, 'main/post.html', context={'post': read_post,
                                                        'image': image,
                                                        'nav_buttons': menu})
 
@@ -44,7 +44,6 @@ def categories(requests, category):
 
 
 def user_posts(requests, user):
-    print(user)
     user_p = Post.objects.filter(
         user__username=user).order_by('-date_create')
     return render(requests, 'main/categories.html', context={'posts': user_p,
