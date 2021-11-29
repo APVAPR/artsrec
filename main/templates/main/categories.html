@@ -1,8 +1,5 @@
 {% extends 'main/base.html' %}
 {% block content %}
     {% include 'includes/nav_menu.html' %}
-    {% for post in posts_cat %}
-    <h1>{{ post.slug }}</h1>
-    <h1>Hello</h1>
-    {% endfor %}
+    {% include 'includes/last_post.html' %}
 {% endblock %}

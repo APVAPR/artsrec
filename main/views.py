@@ -3,16 +3,11 @@ from django.shortcuts import render
 from .models import *
 
 menu = [
-    {'title': 'На главную', 'url':
-        {'view': 'index', 'arg': ''}},
-    {'title': 'Книги', 'url':
-        {'view': 'categories', 'arg': 'books'}},
-    {'title': 'Фильмы', 'url':
-        {'view': 'categories', 'arg': 'movies'}},
-    {'title': 'Игры', 'url':
-        {'view': 'categories', 'arg': 'games'}},
-    {'title': 'Рекомендовать', 'url':
-        {'view': None, 'arg': None}}
+    {'title': 'Все категории', 'url': '/'},
+    {'title': 'Книги', 'url': '/category/books'},
+    {'title': 'Фильмы', 'url': '/category/movies'},
+    {'title': 'Игры', 'url': '/category/games'},
+    {'title': 'Добавить', 'url': ''}
 ]
 
 all_posts = Post.objects.all().order_by('-date_create')
@@ -21,9 +16,7 @@ images = Image.objects.all()
 last_post_image = Image.objects.last().photo
 
 
-
 def index(requests):
-
     context = {'title': 'Recommendation',
                'nav_buttons': menu,
                'posts': all_posts,
@@ -37,12 +30,20 @@ def index(requests):
 def post(requests, slug):
     post = all_posts.get(slug=slug)
     image = post.image_set.first()
-    return render(requests, 'main/post.html', context={'post': post, 'image': image, 'nav_buttons': menu})
+    return render(requests, 'main/post.html', context={'post': post,
+                                                       'image': image,
+                                                       'nav_buttons': menu})
 
 
 def categories(requests, category):
-    posts_cat = Post.objects.filter(title_post__category__title=category)
-
+    posts_cat = Post.objects.filter(title_post__category__slug=category)
     return render(requests, 'main/categories.html',
-                  context={'posts_cat': posts_cat,
+                  context={'posts': posts_cat,
                            'nav_buttons': menu})
+
+
+def user_posts(requests, user):
+    print(user)
+    user_p = Post.objects.filter(user__username=user)
+    return render(requests, 'main/categories.html', context={'posts': user_p,
+                                                             'nav_buttons': menu})

@@ -12,7 +12,7 @@
 							<div>
 								by&nbsp;
 							</div>
-							<a href="#" class="link color-heading">
+							<a href="{% url 'user_post' post.user.username|lower %}" class="link color-heading">
 								{{ post.user.first_name }} {{ post.user.last_name  }}
 							</a>
 							<div class="pr-10 pl-10">
