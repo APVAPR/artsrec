@@ -7,7 +7,7 @@ menu = [
     {'title': 'Книги', 'url': '/category/books'},
     {'title': 'Фильмы', 'url': '/category/movies'},
     {'title': 'Игры', 'url': '/category/games'},
-    {'title': 'Добавить', 'url': ''}
+    {'title': 'Добавить', 'url': 'admin/main/post/'}
 ]
 
 all_posts = Post.objects.all().order_by('-date_create')
@@ -28,15 +28,16 @@ def index(requests):
 
 
 def post(requests, slug):
-    post = all_posts.get(slug=slug)
-    image = post.image_set.first()
+    read_post = all_posts.get(slug=slug)
+    image = read_post.image_set.first()
     return render(requests, 'main/post.html', context={'post': post,
                                                        'image': image,
                                                        'nav_buttons': menu})
 
 
 def categories(requests, category):
-    posts_cat = Post.objects.filter(title_post__category__slug=category)
+    posts_cat = Post.objects.filter(
+        title_post__category__slug=category).order_by('-date_create')
     return render(requests, 'main/categories.html',
                   context={'posts': posts_cat,
                            'nav_buttons': menu})
@@ -44,6 +45,7 @@ def categories(requests, category):
 
 def user_posts(requests, user):
     print(user)
-    user_p = Post.objects.filter(user__username=user)
+    user_p = Post.objects.filter(
+        user__username=user).order_by('-date_create')
     return render(requests, 'main/categories.html', context={'posts': user_p,
                                                              'nav_buttons': menu})

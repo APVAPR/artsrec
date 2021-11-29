@@ -20,7 +20,6 @@ class Post(models.Model):
     date_create = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     title_post = models.ForeignKey('Item', on_delete=models.CASCADE, verbose_name='Название', related_name='get_posts')
     content = models.TextField(blank=True, verbose_name="Текст статьи")
-    # image_preview = models.ForeignKey('Image', on_delete=models.SET_NULL, null=True, verbose_name='Изображение')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
 
     def __str__(self):
