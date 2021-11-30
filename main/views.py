@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from .forms import AddPostForm
 from .models import *
 
 menu = [
@@ -52,3 +53,12 @@ def user_posts(requests, user):
         user__username=user).order_by('-date_create')
     return render(requests, 'main/categories.html', context={'posts': user_p,
                                                              'nav_buttons': menu})
+def add_post(requests):
+    form = AddPostForm()
+    if requests.method == 'POST':
+        form = AddPostForm(requests.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+    else:
+        form = AddPostForm()
+    return render(requests, 'main/add_post.html', context={'nav_buttons': menu, 'form': form})
