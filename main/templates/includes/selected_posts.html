@@ -1,8 +1,9 @@
 {% load static %}
-{% for post in posts %}
+
 
     <section class="bg-light">
         <div class="container px-xl-0">
+        {% for post in posts %}git
             {% if forloop.first %}
                 <div class="row justify-content-between">
                     <div class="col-lg-6 col-xl-5 justify-content-center">
@@ -63,14 +64,14 @@
                 </div>
 
 
-                </div>
+
                 <br>
-                </section>
+
 
                 {% else %}
-                <div class="row">
 {#                    {% include 'includes/preview_post.html' %}#}
                     {% include 'includes/preview_post2.html' %}
             {% endif %}
-            </div>
 {% endfor %}
+</div>
+</section>
