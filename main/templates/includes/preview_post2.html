@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="carousel" style="width: 33%;">
+        <img src="{{ post.image_set.first.photo.url }}" class="card-img-top"
+             alt="{{ post.title_post }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.content|truncatewords:15 }}</p>
+            <a href="{% url 'post' post.slug %}"
+               class="mb-sm-0 btn f-16 lg action-2">Читать
+                рекомендацию</a>
+            <br>
+        </div>
+    </div>
+</div>

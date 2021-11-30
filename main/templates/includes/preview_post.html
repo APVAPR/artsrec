@@ -1,0 +1,33 @@
+<section class="pt-10 pb-10 bg-light blog_2 d-flex">
+    <div class="container px-xl-0" data-aos-delay="0">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class={% cycle "mb-30 col-12 h-270" "mb-30 col-12 col-sm-6 h-390" "mb-30 col-12 col-sm-6 h-390" %} block-thin"
+                         data-aos="fade-down" data-aos-delay="300">
+                        <div class="h-full bg-dark color-filter-dark-4 px-30 pt-30 pb-30 radius10 "
+                             data-bg-src="{{ post.image_set.first.photo.url }}"
+                             data-bg-src-2x="{{ post.image_set.first.photo.url }}">
+                            <div class="d-flex justify-content-end relative">
+                                <a href="#"
+                                   class="pl-15 pr-15 bg-white link color-main f-14 lh-30 bold text-uppercase sp-20 radius10">
+                                    {{ post.title_post }}
+                                </a>
+                            </div>
+                            <a href="{% url 'user_post' post.user %}" class="link color-white relative">
+
+                                <div class="mb-20 f-15 medium">
+                                    {{ post.content|truncatewords:15 }}
+                                </div>
+                                <div class="f-14 bold text-uppercase sp-20">
+                                    {{ post.date_create }}
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
