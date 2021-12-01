@@ -5,7 +5,7 @@ from .models import Post, Category
 User = get_user_model()
 
 
-class LoginForm(forms.Form):
+class LoginForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
@@ -14,8 +14,8 @@ class LoginForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['username'].label = 'Логин'
-        # self.fields['password'].label = 'Пароль'
+        self.fields['username'].label = 'Логин'
+        self.fields['password'].label = 'Пароль'
 
     def clean(self):
         username = self.cleaned_data['username']
@@ -35,12 +35,12 @@ class RegistrationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['username'].label = 'Логин'
-        # self.fields['password'].label = 'Пароль'
-        # self.fields['confirm_password'].label = 'Подтвердите пароль'
-        # self.fields['email'].label = 'Почта'
-        # self.fields['first_name'].label = 'Имя'
-        # self.fields['last_name'].label = 'Фамилия'
+        self.fields['username'].label = 'Логин'
+        self.fields['password'].label = 'Пароль'
+        self.fields['confirm_password'].label = 'Подтвердите пароль'
+        self.fields['email'].label = 'Почта'
+        self.fields['first_name'].label = 'Имя'
+        self.fields['last_name'].label = 'Фамилия'
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -79,5 +79,3 @@ class AddPostForm(forms.ModelForm):
             'title_post': forms.TextInput(attrs={'class': 'form-input'}),
             'content': forms.Textarea(attrs={'cols': 60, 'rows': 20})
         }
-
-

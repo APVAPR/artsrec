@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ['127.0.0.1', 'artsrec.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
+    'crispy_bootstrap5',
     'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -134,3 +136,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
