@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'artsrec.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd922115jo0tdlk',
-        'USER': 'vizutuilliiull',
-        'PASSWORD': 'ccdc3e23b0f3c246cddfd4911d2c3327f0716f7de72766aba3c3cbb5ea20fe71',
-        'HOST': 'ec2-176-34-222-188.eu-west-1.compute.amazonaws.com',
+        'NAME': 'dfclth8eri6c5j',
+        'USER': 'xfaplojpplxbcw',
+        'PASSWORD': 'ba4ae8a7621d951e0fdf25cb2a816be7d80eca59e17795bf45b68e986f45682e',
+        'HOST': 'ec2-52-211-158-144.eu-west-1.compute.amazonaws.com',
         'PORT': '5432'
     }
 }
