@@ -3,8 +3,18 @@
 
 {% block content %}
     {% include 'includes/nav_menu.html' %}
-    <section class="bg-light row-cols-xxl-auto">
-        <h1>{{ user }}</h1>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    </section>
+        <section class="bg-light row-cols-xxl-auto">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <h3 class="text-center">Регистрация</h3>
+                    <hr>
+                    <form action="{% url 'login' %}" method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+        {#                <input type="submit" class="btn btn-success btn-block" value="Войти">#}
+                        <button class="btn mr-20 sm action-2 f-16 "type="submit ">Зарегистрироваться</button>
+                    </form>
+                </div>
+            </div>
+        </section>
 {% endblock %}

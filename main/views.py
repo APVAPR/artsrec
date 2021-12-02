@@ -9,8 +9,8 @@ menu = [
     {'title': 'Все категории', 'url': '/'},
     {'title': 'Книги', 'url': '/category/books'},
     {'title': 'Фильмы', 'url': '/category/movies'},
-    {'title': 'Игры', 'url': '/category/games'},
-    {'title': 'Добавить', 'url': '/add-post/'}
+    {'title': 'Игры', 'url': '/category/games'}
+    # {'title': 'Добавить', 'url': '/add-post/'}
 ]
 
 all_posts = Post.objects.all().order_by('-date_create')
