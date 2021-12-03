@@ -11,8 +11,7 @@
                     <form action="{% url 'login' %}" method="POST">
                         {% csrf_token %}
                         {{ form|crispy }}
-        {#                <input type="submit" class="btn btn-success btn-block" value="Войти">#}
-                        <button class="btn mr-20 sm action-2 f-16 "type="submit ">Зарегистрироваться</button>
+                        <input type="submit" class="btn mr-20 sm action-2 f-16 " value="Зарегистрироваться">
                     </form>
                 </div>
             </div>

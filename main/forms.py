@@ -41,6 +41,7 @@ class RegistrationForm(forms.ModelForm):
         self.fields['email'].label = 'Почта'
         self.fields['first_name'].label = 'Имя'
         self.fields['last_name'].label = 'Фамилия'
+        print("Pusk RegForm")
 
     def clean_email(self):
         email = self.cleaned_data['email']

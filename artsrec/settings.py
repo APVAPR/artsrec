@@ -9,8 +9,11 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+
 import os
 from pathlib import Path
+
+import dj_database_url
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,6 +27,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
+# DATABASE_URL = os.getenv('DATABASE_URL')
+# print(DATABASE_URL)
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -73,18 +80,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'artsrec.wsgi.application'
+DATABASES = dict()
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dfclth8eri6c5j',
-        'USER': 'xfaplojpplxbcw',
-        'PASSWORD': 'ba4ae8a7621d951e0fdf25cb2a816be7d80eca59e17795bf45b68e986f45682e',
-        'HOST': 'ec2-52-211-158-144.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432'
-    }
-}
+WSGI_APPLICATION = 'artsrec.wsgi.application'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -139,3 +138,5 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+

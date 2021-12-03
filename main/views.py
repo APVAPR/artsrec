@@ -10,21 +10,15 @@ menu = [
     {'title': 'Книги', 'url': '/category/books'},
     {'title': 'Фильмы', 'url': '/category/movies'},
     {'title': 'Игры', 'url': '/category/games'}
-    # {'title': 'Добавить', 'url': '/add-post/'}
 ]
 
 all_posts = Post.objects.all().order_by('-date_create')
-last_post = all_posts.first()
 images = Image.objects.all()
-last_post_image = Image.objects.last().photo
-
 
 def index(requests):
     context = {'title': 'Recommendation',
                'nav_buttons': menu,
                'posts': all_posts,
-               'last_post': last_post,
-               'last_post_photo': last_post_image,
                'images': images}
 
     return render(requests, 'main/index.html', context=context)
@@ -74,11 +68,6 @@ class RegistrationView(views.View):
             new_user.save()
             new_user.set_password(form.cleaned_data['password'])
             new_user.save()
-            # Customer.objects.create(
-            #     user=new_user,
-            #     phone=form.cleaned_data['phone'],
-            #     address=form.cleaned_data['address']
-            # )
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             login(request, user)
             return HttpResponseRedirect('/')
