@@ -6,42 +6,47 @@
         <div class="row justify-content-center align-items-center f-16">
             <div class="mb-20 mb-lg-0 col-lg-3 text-lg-left">
                 <a href="{% url 'index' %}" class="link img_link h-20 w-40">
-                    <img src={% static 'main/images/logo.png' %} class="img-fluid" data-aos="fade-down" data-aos-delay="0" srcset={% static 'main/images/logo.png' %} alt="Logo">
+                    <img src="{% static 'main/images/logo.png' %}" class="img-fluid" data-aos="fade-down"
+                         data-aos-delay="0" srcset="{% static 'main/images/logo.png' %}" alt="Logo">
                 </a>
             </div>
             <div class="col-lg-6" data-aos="fade-down" data-aos-delay="100">
                 {% for button in nav_buttons %}
-                <a href="{{ button.url }}" class="link mx-15 color-main" data-aos="zoom-in-right" data-aos-delay={% cycle 50 70 90 110 130 %}>
-                    {{ button.title }}
-                </a>
+                    <a href="{{ button.url }}" class="link mx-15 color-main" data-aos="zoom-in-right"
+                       data-aos-delay={% cycle 50 70 90 110 130 %}>
+                        {{ button.title }}
+                    </a>
                 {% endfor %}
-{#                <a href="#" class="mx-15 link color-main">#}
-{#                    <i class="fas fa-search"></i>#}
-{#                </a>#}
+                {#                <a href="#" class="mx-15 link color-main">#}
+                {#                    <i class="fas fa-search"></i>#}
+                {#                </a>#}
             </div>
-        {% if not request.user.is_autenticated %}
-            <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="110">
-                <a href="{% url 'login' %}" class="link mr-20 color-main">
-                    Войти
-                </a>
-                <a href="{% url 'registration' %}" class="btn mr-20 sm action-2 f-16">
-                    Зарегистрироваться
-                </a>
-            </div>
-        {% else %}
-
-            <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center" data-aos="fade-down" data-aos-delay="110">
-                <a href="{% url 'add_post' %}" class="link mx-15 color-main" data-aos="zoom-in-right" data-aos-delay="70">
+            {% if not request.user.is_authenticated %}
+                <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center"
+                     data-aos="fade-down" data-aos-delay="110">
+                    <a href="{% url 'login' %}" class="link mr-20 color-main">
+                        Войти
+                    </a>
+                    <a href="{% url 'registration' %}" class="btn mr-20 sm action-2 f-16">
+                        Зарегистрироваться
+                    </a>
+                </div>
+            {% else %}
+                <div class="mt-20 mt-lg-0 col-lg-3 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center"
+                     data-aos="fade-down" data-aos-delay="110">
+                <a href="{% url 'add_post' %}" class="link mx-15 color-main" data-aos="zoom-in-right"
+                   data-aos-delay="70">
                     Добавить рекомендацию
                 </a>
                 <a href="#" class="link mr-20 color-main">
-                    Личный кабинет
+                    Личный кабинет, {{ user.username }}
                 </a>
                 <a href="{% url 'logout' %}" class="btn mr-20 sm action-2 f-16">
                     Выйти
                 </a>
+            {% endif %}
             </div>
-        {% endif %}
+
         </div>
     </div>
 </nav>

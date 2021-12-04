@@ -1,6 +1,10 @@
+from django.contrib.auth.models import User
 from django import views
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
 from .models import Post, Image
 from .forms import LoginForm, RegistrationForm, AddPostForm
 from django.contrib.auth import authenticate, login
@@ -14,6 +18,7 @@ menu = [
 
 all_posts = Post.objects.all().order_by('-date_create')
 images = Image.objects.all()
+
 
 def index(requests):
     context = {'title': 'Recommendation',
@@ -38,10 +43,12 @@ class LoginView(views.View):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
+            user = authenticate(request, username=username, password=password)
+
             if user:
                 login(request, user)
-                return HttpResponseRedirect('/')
+                print(user)
+                return redirect('categories', 'books')
         context = {
             'form': form
         }
@@ -60,24 +67,35 @@ class RegistrationView(views.View):
     def post(self, request, *args, **kwargs):
         form = RegistrationForm(request.POST or None)
         if form.is_valid():
-            new_user = form.save(commit=False)
-            new_user.username = form.cleaned_data['username']
-            new_user.email = form.cleaned_data['email']
-            new_user.first_name = form.cleaned_data['first_name']
-            new_user.last_name = form.cleaned_data['last_name']
-            new_user.save()
+            new_user = User.objects.create_user(
+                username=form.cleaned_data['username'],
+                email=form.cleaned_data['email'],
+            )
             new_user.set_password(form.cleaned_data['password'])
             new_user.save()
-            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            if form.cleaned_data['first_name']:
+                new_user.first_name = form.cleaned_data['first_name']
+            if form.cleaned_data['last_name']:
+                new_user.last_name = form.cleaned_data['last_name']
+            new_user.is_staff = True
+            new_user.save()
+            user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             login(request, user)
-            return HttpResponseRedirect('/')
+            print(f'user is {user}')
+            return redirect('index')
         context = {
             'form': form
         }
         return render(request, 'main/registration.html', context)
 
 
-def post(requests, slug):
+# class RegistrationView(CreateView):
+#     form_class = RegistrationForm
+#     template_name = 'main/registration.html'
+#     success_url = reverse_lazy('login')
+
+
+def get_full_post(requests, slug):
     read_post = all_posts.get(slug=slug)
     image = read_post.image_set.first()
     return render(requests, 'main/post.html', context={'post': read_post,
@@ -100,6 +118,7 @@ def user_posts(requests, user):
                                                              'nav_buttons': menu})
 
 
+@login_required
 def add_post(requests):
     if requests.method == 'POST':
         form = AddPostForm(requests.POST)

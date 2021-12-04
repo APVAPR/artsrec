@@ -8,7 +8,7 @@
                 <div class="col-md-6 offset-md-3">
                     <h3 class="text-center">Регистрация</h3>
                     <hr>
-                    <form action="{% url 'login' %}" method="POST">
+                    <form action="{% url 'registration' %}" method="POST">
                         {% csrf_token %}
                         {{ form|crispy }}
                         <input type="submit" class="btn mr-20 sm action-2 f-16 " value="Зарегистрироваться">
