@@ -167,85 +167,85 @@ function SF_scripts() {
     // AJAX send form
     var grecaptchaWidgetID;
 
-    // $("form:not(.SFG)").submit(function (event) {
-    if (0) $("form:not(.SFG)").submit(function (event) {
-        event.preventDefault();
-
-        var form = $(this);
-        var grecaptchaContainer = document.getElementById("g-recaptcha");
-        if ($(grecaptchaContainer).length > 0) {
-            $(".grecaptcha-overlay").fadeIn(150, function () {
-                $(".grecaptcha-popup").fadeIn(200, function () {
-                    if (typeof (grecaptchaWidgetID) == "undefined") {
-                        grecaptchaWidgetID = grecaptcha.render(grecaptchaContainer, {
-                            "sitekey": $(grecaptchaContainer).attr("data-sitekey"),
-                            "callback": function (grecaptchaResponse) {
-                                if (grecaptchaResponse) {
-                                    var grecaptchaInput = form.find('input[name=g-recaptcha-response]');
-                                    if (grecaptchaInput.length > 0) {
-                                        grecaptchaInput.val(grecaptchaResponse);
-                                    } else {
-                                        form.append('<input name="g-recaptcha-response" value="' + grecaptchaResponse + '" type="hidden" />');
-                                    }
-                                    submitForm(form);
-                                } else {
-                                    grecaptcha.reset(grecaptchaWidgetID);
-                                }
-                            },
-                            "expired-callback": function () {
-                                grecaptcha.reset(grecaptchaWidgetID);
-                            },
-                            "error-callback": function () {
-                                $(".alert-form-error .message").html("Error: Please, check your internet connection and try again");
-                                $(".alert-form-error").fadeIn(200).delay(10000).fadeOut(200);
-                                grecaptcha.reset(grecaptchaWidgetID);
-                            },
-                        });
-                    } else {
-                        grecaptcha.reset(grecaptchaWidgetID);
-                    }
-                });
-            });
-        } else {
-            submitForm(form);
-        }
-
-        function submitForm(form) {
-            var term = form.serialize(),
-                url = form.attr("action"),
-                required_fields_filled = true;
-
-            form.find("input, textarea, select").each(function () {
-                if ($(this).prop("required") && $(this).val() == "") {
-                    required_fields_filled = false;
-                }
-            });
-
-            if (required_fields_filled) {
-                var posting = $.post(url, term);
-                posting
-                    .done(function (data, status) {
-                        window.location = "/";
-                    })
-                    // .done(function (data) {
-                    //     if (data == "ok") {
-                    //         $(".alert-form-success").fadeIn(200).delay(5000).fadeOut(200);
-                    //     } else {
-                    //         $(".alert-form-error .message").html(data);
-                    //         $(".alert-form-error").fadeIn(200).delay(10000).fadeOut(200);
-                    //     }
-                    //     hidegRecaptchaPopup();
-                    // })
-                    .fail(function () {
-                        $(".alert-form-error").fadeIn(200).delay(10000).fadeOut(200);
-                        hidegRecaptchaPopup();
-                    });
-            } else {
-                $(".alert-form-check-fields").fadeIn(200).delay(5000).fadeOut(200);
-                hidegRecaptchaPopup();
-            }
-        }
-    });
+    // // $("form:not(.SFG)").submit(function (event) {
+    // if (0) $("form:not(.SFG)").submit(function (event) {
+    //     event.preventDefault();
+    //
+    //     var form = $(this);
+    //     var grecaptchaContainer = document.getElementById("g-recaptcha");
+    //     if ($(grecaptchaContainer).length > 0) {
+    //         $(".grecaptcha-overlay").fadeIn(150, function () {
+    //             $(".grecaptcha-popup").fadeIn(200, function () {
+    //                 if (typeof (grecaptchaWidgetID) == "undefined") {
+    //                     grecaptchaWidgetID = grecaptcha.render(grecaptchaContainer, {
+    //                         "sitekey": $(grecaptchaContainer).attr("data-sitekey"),
+    //                         "callback": function (grecaptchaResponse) {
+    //                             if (grecaptchaResponse) {
+    //                                 var grecaptchaInput = form.find('input[name=g-recaptcha-response]');
+    //                                 if (grecaptchaInput.length > 0) {
+    //                                     grecaptchaInput.val(grecaptchaResponse);
+    //                                 } else {
+    //                                     form.append('<input name="g-recaptcha-response" value="' + grecaptchaResponse + '" type="hidden" />');
+    //                                 }
+    //                                 submitForm(form);
+    //                             } else {
+    //                                 grecaptcha.reset(grecaptchaWidgetID);
+    //                             }
+    //                         },
+    //                         "expired-callback": function () {
+    //                             grecaptcha.reset(grecaptchaWidgetID);
+    //                         },
+    //                         "error-callback": function () {
+    //                             $(".alert-form-error .message").html("Error: Please, check your internet connection and try again");
+    //                             $(".alert-form-error").fadeIn(200).delay(10000).fadeOut(200);
+    //                             grecaptcha.reset(grecaptchaWidgetID);
+    //                         },
+    //                     });
+    //                 } else {
+    //                     grecaptcha.reset(grecaptchaWidgetID);
+    //                 }
+    //             });
+    //         });
+    //     } else {
+    //         submitForm(form);
+    //     }
+    //
+    //     function submitForm(form) {
+    //         var term = form.serialize(),
+    //             url = form.attr("action"),
+    //             required_fields_filled = true;
+    //
+    //         form.find("input, textarea, select").each(function () {
+    //             if ($(this).prop("required") && $(this).val() == "") {
+    //                 required_fields_filled = false;
+    //             }
+    //         });
+    //
+    //         if (required_fields_filled) {
+    //             var posting = $.post(url, term);
+    //             posting
+    //                 .done(function (data, status) {
+    //                     window.location = "/";
+    //                 })
+    //                 // .done(function (data) {
+    //                 //     if (data == "ok") {
+    //                 //         $(".alert-form-success").fadeIn(200).delay(5000).fadeOut(200);
+    //                 //     } else {
+    //                 //         $(".alert-form-error .message").html(data);
+    //                 //         $(".alert-form-error").fadeIn(200).delay(10000).fadeOut(200);
+    //                 //     }
+    //                 //     hidegRecaptchaPopup();
+    //                 // })
+    //                 .fail(function () {
+    //                     $(".alert-form-error").fadeIn(200).delay(10000).fadeOut(200);
+    //                     hidegRecaptchaPopup();
+    //                 });
+    //         } else {
+    //             $(".alert-form-check-fields").fadeIn(200).delay(5000).fadeOut(200);
+    //             hidegRecaptchaPopup();
+    //         }
+    //     }
+    // });
 
     // Close gReCaptcha popup
     $(".grecaptcha-overlay").click(function () {
