@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from .models import Post, Category
+from .models import Post, Category, Item, Image
 
 User = get_user_model()
 
@@ -66,20 +66,27 @@ class RegistrationForm(forms.ModelForm):
         fields = ['username', 'password', 'confirm_password', 'first_name', 'last_name', 'email']
 
 
-class AddPostForm(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super(AddPostForm, self).__init__(*args, **kwargs)
-        self.fields['image'].label = 'Изображение'
-    # category = forms.ModelChoiceField(queryset=Category.objects.all(), label='Выберите категорию')
-    # title_post = forms.CharField(max_length=255, label='Заголовок')
-    # slug = forms.SlugField(max_length=255, label='URL')
-    image = forms.ImageField(label='Изображение')
-
+class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title_post', 'content']
+        fields = ['content']
         widgets = {
-            'title_post': forms.TextInput(attrs={'class': 'form-input'}),
             'content': forms.Textarea(attrs={'cols': 60, 'rows': 20})
         }
+
+
+class ItemForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        fields = ['title', 'author', 'category']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-input'}),
+            'author': forms.TextInput(attrs={'class': 'form-input'}),
+            'category': forms.Select(choices=Category.objects.all(), attrs={'class': 'form-control'})
+        }
+
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        fields = ['photo']

@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django import views
 from django.contrib.auth.decorators import login_required
@@ -7,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
 from .models import Post, Image
-from .forms import LoginForm, RegistrationForm, AddPostForm
+from .forms import LoginForm, RegistrationForm, PostForm, ItemForm, ImageForm
 from django.contrib.auth import authenticate, login
 
 menu = [
@@ -90,12 +91,6 @@ class RegistrationView(views.View):
         return render(request, 'main/registration.html', context)
 
 
-# class RegistrationView(CreateView):
-#     form_class = RegistrationForm
-#     template_name = 'main/registration.html'
-#     success_url = reverse_lazy('login')
-
-
 def get_full_post(requests, user, slug):
     read_post = all_posts.get(title_post__slug=slug)
     image = read_post.image_set.first()
@@ -119,13 +114,39 @@ def user_posts(requests, user):
                                                              'nav_buttons': menu})
 
 
-@login_required
-def add_post(requests):
-    if requests.method == 'POST':
-        form = AddPostForm(requests.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-            return redirect('index')
-    else:
-        form = AddPostForm()
-    return render(requests, 'main/add_post.html', context={'nav_buttons': menu, 'form': form})
+class AddPostView(LoginRequiredMixin, views.View):
+
+    def get(self, request, *args, **kwargs):
+        post_form = PostForm(request.POST or None)
+        item_form = ItemForm(request.POST or None)
+        image_form = ImageForm(request.POST or None)
+        context = {
+            'post_form': post_form,
+            'image_form': image_form,
+            'item_form': item_form
+        }
+        return render(request, 'main/add_post.html', context)
+
+    def post(self, request, *args, **kwargs):
+        post_form = PostForm(request.POST or None)
+        item_form = ItemForm(request.POST or None)
+        image_form = ImageForm(request.POST or None)
+        # if post_form.is_valid():
+        #     print(form)
+        #     new_post = Post.objects.create(
+        #         user=request.POST.user,
+        #
+        #     )
+
+        return redirect('index')
+
+# @login_required
+# def add_post(requests):
+#     if requests.method == 'POST':
+#         form = AddPostForm(requests.POST)
+#         if form.is_valid():
+#             print(form.cleaned_data)
+#             return redirect('index')
+#     else:
+#         form = AddPostForm()
+#     return render(requests, 'main/add_post.html', context={'nav_buttons': menu, 'form': form})

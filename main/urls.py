@@ -10,5 +10,7 @@ urlpatterns = [
     path('category/<slug:category>/', views.categories, name='categories'),
     path('posts/<str:user>/', views.user_posts, name='user_post'),
     path('post/<str:user>/<slug:slug>/', views.get_full_post, name='post'),
-    path('add-post/', views.add_post, name='add_post')
+    path('add-post/', views.AddPostView.as_view(), name='add_post')
+    # path('add-post/', views.add_post, name='add_post')
+
 ]
