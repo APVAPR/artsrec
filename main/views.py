@@ -48,7 +48,7 @@ class LoginView(views.View):
             if user:
                 login(request, user)
                 print(user)
-                return redirect('categories', 'books')
+                return '/'
         context = {
             'form': form
         }
@@ -82,7 +82,7 @@ class RegistrationView(views.View):
             user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             login(request, user)
             print(f'user is {user}')
-            return redirect('index')
+            return '/'
         context = {
             'form': form
         }

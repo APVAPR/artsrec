@@ -70,11 +70,11 @@ class AddPostForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(AddPostForm, self).__init__(*args, **kwargs)
-        self.fields['']
+        self.fields['image'].label = 'Изображение'
     # category = forms.ModelChoiceField(queryset=Category.objects.all(), label='Выберите категорию')
     # title_post = forms.CharField(max_length=255, label='Заголовок')
     # slug = forms.SlugField(max_length=255, label='URL')
-    # image = forms.ImageField(label='Изображение')
+    image = forms.ImageField(label='Изображение')
 
     class Meta:
         model = Post
