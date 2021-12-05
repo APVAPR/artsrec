@@ -95,8 +95,8 @@ class RegistrationView(views.View):
 #     success_url = reverse_lazy('login')
 
 
-def get_full_post(requests, slug):
-    read_post = all_posts.get(slug=slug)
+def get_full_post(requests, user, slug):
+    read_post = all_posts.get(title_post__slug=slug)
     image = read_post.image_set.first()
     return render(requests, 'main/post.html', context={'post': read_post,
                                                        'image': image,
