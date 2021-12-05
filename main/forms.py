@@ -67,6 +67,10 @@ class RegistrationForm(forms.ModelForm):
 
 
 class AddPostForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(AddPostForm, self).__init__(*args, **kwargs)
+        self.fields['']
     # category = forms.ModelChoiceField(queryset=Category.objects.all(), label='Выберите категорию')
     # title_post = forms.CharField(max_length=255, label='Заголовок')
     # slug = forms.SlugField(max_length=255, label='URL')
