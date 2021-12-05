@@ -1,15 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django import views
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
 
-from .models import Post, Image
+from .models import Post, Image, Item
 from .forms import LoginForm, RegistrationForm, PostForm, ItemForm, ImageForm
 from django.contrib.auth import authenticate, login
+import transliterate
 
 menu = [
     {'title': 'Все категории', 'url': '/'},
@@ -130,23 +127,20 @@ class AddPostView(LoginRequiredMixin, views.View):
     def post(self, request, *args, **kwargs):
         post_form = PostForm(request.POST or None)
         item_form = ItemForm(request.POST or None)
-        image_form = ImageForm(request.POST or None)
-        # if post_form.is_valid():
-        #     print(form)
-        #     new_post = Post.objects.create(
-        #         user=request.POST.user,
-        #
-        #     )
-
+        image_form = ImageForm(request.POST or None, request.FILES or None)
+        if post_form.is_valid() and item_form.is_valid() and item_form.is_valid():
+            item = Item.objects.create(
+                title=item_form.cleaned_data['title'],
+                author=item_form.cleaned_data['author'],
+                category=item_form.cleaned_data['category'],
+                slug=ItemForm.get_slug(item_form.cleaned_data['author']) + '-' +
+                     ItemForm.get_slug(item_form.cleaned_data['title'])
+            )
+            new_post = Post.objects.create(user=request.user,
+                                           title_post=item,
+                                           content=post_form.cleaned_data['content'],
+                                           )
+            image = Image(post=new_post, photo=image_form.save(commit=False))
+            image.save()
+            print(transliterate.slugify(item_form.cleaned_data['title']))
         return redirect('index')
-
-# @login_required
-# def add_post(requests):
-#     if requests.method == 'POST':
-#         form = AddPostForm(requests.POST)
-#         if form.is_valid():
-#             print(form.cleaned_data)
-#             return redirect('index')
-#     else:
-#         form = AddPostForm()
-#     return render(requests, 'main/add_post.html', context={'nav_buttons': menu, 'form': form})

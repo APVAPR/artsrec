@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from .models import Post, Category, Item, Image
+import transliterate
 
 User = get_user_model()
 
@@ -76,6 +77,16 @@ class PostForm(forms.ModelForm):
 
 
 class ItemForm(forms.ModelForm):
+
+    @staticmethod
+    def get_slug(slug):
+        slug = transliterate.slugify(slug)
+        num = 1
+        while Item.objects.filter(slug=slug):
+            slug = slug + str(num)
+            num += int(num)
+        return slug
+
     class Meta:
         model = Item
         fields = ['title', 'author', 'category']
@@ -90,3 +101,6 @@ class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ['photo']
+        # widgets = {
+        #     'post': forms.ModelChoiceField(queryset=Post.objects.all())
+        # }
