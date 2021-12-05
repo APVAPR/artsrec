@@ -167,8 +167,8 @@ function SF_scripts() {
     // AJAX send form
     var grecaptchaWidgetID;
 
-    $("form:not(.SFG)").submit(function (event) {
-
+    // $("form:not(.SFG)").submit(function (event) {
+    if (0) $("form:not(.SFG)").submit(function (event) {
         event.preventDefault();
 
         var form = $(this);

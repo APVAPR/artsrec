@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django import views
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -48,7 +49,7 @@ class LoginView(views.View):
             if user:
                 login(request, user)
                 print(user)
-                return '/'
+                return redirect('index')
         context = {
             'form': form
         }
@@ -82,7 +83,7 @@ class RegistrationView(views.View):
             user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             login(request, user)
             print(f'user is {user}')
-            return '/'
+            return redirect('index')
         context = {
             'form': form
         }
