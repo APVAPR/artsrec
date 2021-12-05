@@ -6,10 +6,11 @@
 
     <section class="bg-light">
         <div class="container px-xl-0">
-            <form action="{% url 'add_post' %}" method="post">
+            <form action="{% url 'add_post' %}" method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button class="btn mr-20 sm action-2 f-16" type="submit ">Добавить</button>
+                <input type="submit" class="btn mr-20 sm action-2 f-16 " value=Добавить>
+{#                <button class="btn mr-20 sm action-2 f-16" type="submit ">Добавить</button>#}
             </form>
         </div>
     </section>

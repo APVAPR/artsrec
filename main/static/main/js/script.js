@@ -225,7 +225,7 @@ function SF_scripts() {
                 var posting = $.post(url, term);
                 posting
                     .done(function (data, status) {
-                        console.log({data, status});
+                        window.location = "/";
                     })
                     // .done(function (data) {
                     //     if (data == "ok") {
