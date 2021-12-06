@@ -78,14 +78,6 @@ class PostForm(forms.ModelForm):
 
 class ItemForm(forms.ModelForm):
 
-    @staticmethod
-    def get_slug(slug):
-        slug = transliterate.slugify(slug)
-        num = 1
-        while Item.objects.filter(slug=slug):
-            slug = slug + str(num)
-            num += int(num)
-        return slug
 
     class Meta:
         model = Item
@@ -101,6 +93,6 @@ class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ['photo']
-        # widgets = {
-        #     'post': forms.ModelChoiceField(queryset=Post.objects.all())
-        # }
+        widgets = {
+        }
+

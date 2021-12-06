@@ -8,6 +8,8 @@ from .forms import LoginForm, RegistrationForm, PostForm, ItemForm, ImageForm
 from django.contrib.auth import authenticate, login
 import transliterate
 
+from .templates.main.utils import get_slug
+
 menu = [
     {'title': 'Все категории', 'url': '/'},
     {'title': 'Книги', 'url': '/category/books'},
@@ -127,20 +129,20 @@ class AddPostView(LoginRequiredMixin, views.View):
     def post(self, request, *args, **kwargs):
         post_form = PostForm(request.POST or None)
         item_form = ItemForm(request.POST or None)
-        image_form = ImageForm(request.POST or None, request.FILES or None)
+        image_form = ImageForm(request.FILES or None)
+        print(image_form)
         if post_form.is_valid() and item_form.is_valid() and item_form.is_valid():
             item = Item.objects.create(
                 title=item_form.cleaned_data['title'],
                 author=item_form.cleaned_data['author'],
                 category=item_form.cleaned_data['category'],
-                slug=ItemForm.get_slug(item_form.cleaned_data['author']) + '-' +
-                     ItemForm.get_slug(item_form.cleaned_data['title'])
+                slug=get_slug(item_form.cleaned_data['author'],
+                              item_form.cleaned_data['title'])
             )
             new_post = Post.objects.create(user=request.user,
                                            title_post=item,
                                            content=post_form.cleaned_data['content'],
                                            )
-            image = Image(post=new_post, photo=image_form.save(commit=False))
+            image = Image(post=new_post, photo=image_form.photo)
             image.save()
-            print(transliterate.slugify(item_form.cleaned_data['title']))
         return redirect('index')
