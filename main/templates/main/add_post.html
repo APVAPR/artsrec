@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 
 {% block content %}
     {% include 'includes/nav_menu.html' %}
@@ -10,7 +10,7 @@
                 {% csrf_token %}
                 {{ item_form|crispy }}
                 {{ post_form|crispy }}
-                <input type="submit" class="btn mr-20 sm action-2 f-16 " value=Добавить>
+                <input type="submit" class="btn mr-20 sm action-2 f-16 " value="Добавить изображение">
             </form>
         </div>
     </section>

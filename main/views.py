@@ -6,7 +6,6 @@ from django.shortcuts import render, redirect
 from .models import Post, Image, Item
 from .forms import LoginForm, RegistrationForm, PostForm, ItemForm, ImageForm
 from django.contrib.auth import authenticate, login
-import transliterate
 
 from .templates.main.utils import get_slug
 
@@ -17,11 +16,10 @@ menu = [
     {'title': 'Игры', 'url': '/category/games'}
 ]
 
-all_posts = Post.objects.all().order_by('-date_create')
-images = Image.objects.all()
-
 
 def index(requests):
+    all_posts = Post.objects.all().order_by('-date_create')
+    images = Image.objects.all()
     context = {'title': 'Recommendation',
                'nav_buttons': menu,
                'posts': all_posts,
@@ -82,7 +80,6 @@ class RegistrationView(views.View):
             new_user.save()
             user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             login(request, user)
-            print(f'user is {user}')
             return redirect('index')
         context = {
             'form': form
@@ -91,7 +88,7 @@ class RegistrationView(views.View):
 
 
 def get_full_post(requests, user, slug):
-    read_post = all_posts.get(title_post__slug=slug)
+    read_post = Post.objects.get(title_post__slug=slug)
     image = read_post.image_set.first()
     return render(requests, 'main/post.html', context={'post': read_post,
                                                        'image': image,
@@ -127,7 +124,7 @@ class AddPostView(LoginRequiredMixin, views.View):
     def post(self, request, *args, **kwargs):
         post_form = PostForm(request.POST or None)
         item_form = ItemForm(request.POST or None)
-        if post_form.is_valid() and item_form.is_valid() and item_form.is_valid():
+        if post_form.is_valid() and item_form.is_valid():
             item = Item.objects.create(
                 title=item_form.cleaned_data['title'],
                 author=item_form.cleaned_data['author'],
@@ -135,10 +132,10 @@ class AddPostView(LoginRequiredMixin, views.View):
                 slug=get_slug(item_form.cleaned_data['author'],
                               item_form.cleaned_data['title'])
             )
-            new_post = Post.objects.create(user=request.user,
-                                           title_post=item,
-                                           content=post_form.cleaned_data['content'],
-                                           )
+            Post.objects.create(user=request.user,
+                                title_post=item,
+                                content=post_form.cleaned_data['content'],
+                                )
         return redirect('add_image')
 
 
