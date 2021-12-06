@@ -6,10 +6,9 @@
 
     <section class="bg-light">
         <div class="container px-xl-0">
-            <form action="{% url 'add_post' %}" method="POST">
+            <form action="{% url 'add_image' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ item_form|crispy }}
-                {{ post_form|crispy }}
+                {{ image_form|crispy}}
                 <input type="submit" class="btn mr-20 sm action-2 f-16 " value=Добавить>
             </form>
         </div>

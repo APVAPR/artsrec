@@ -118,10 +118,8 @@ class AddPostView(LoginRequiredMixin, views.View):
     def get(self, request, *args, **kwargs):
         post_form = PostForm(request.POST or None)
         item_form = ItemForm(request.POST or None)
-        image_form = ImageForm(request.POST or None)
         context = {
             'post_form': post_form,
-            'image_form': image_form,
             'item_form': item_form
         }
         return render(request, 'main/add_post.html', context)
@@ -129,8 +127,6 @@ class AddPostView(LoginRequiredMixin, views.View):
     def post(self, request, *args, **kwargs):
         post_form = PostForm(request.POST or None)
         item_form = ItemForm(request.POST or None)
-        image_form = ImageForm(request.FILES or None)
-        print(image_form)
         if post_form.is_valid() and item_form.is_valid() and item_form.is_valid():
             item = Item.objects.create(
                 title=item_form.cleaned_data['title'],
@@ -143,6 +139,20 @@ class AddPostView(LoginRequiredMixin, views.View):
                                            title_post=item,
                                            content=post_form.cleaned_data['content'],
                                            )
-            image = Image(post=new_post, photo=image_form.photo)
-            image.save()
+        return redirect('add_image')
+
+
+class AddImageView(LoginRequiredMixin, views.View):
+
+    def get(self, request, *args, **kwargs):
+        image_form = ImageForm(request.POST or None, request.FILES or None)
+        context = {
+            'image_form': image_form,
+        }
+        return render(request, 'main/add_image.html', context)
+
+    def post(self, request, *args, **kwargs):
+        image_form = ImageForm(request.POST or None, request.FILES or None)
+        if image_form.is_valid():
+            image_form.save()
         return redirect('index')

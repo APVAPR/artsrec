@@ -1,3 +1,4 @@
+import requests
 from django import forms
 from django.contrib.auth import get_user_model
 from .models import Post, Category, Item, Image
@@ -77,8 +78,6 @@ class PostForm(forms.ModelForm):
 
 
 class ItemForm(forms.ModelForm):
-
-
     class Meta:
         model = Item
         fields = ['title', 'author', 'category']
@@ -92,7 +91,7 @@ class ItemForm(forms.ModelForm):
 class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
-        fields = ['photo']
+        fields = ['post', 'photo']
         widgets = {
+            'post': forms.Select(choices=Post.objects.all(), attrs={'class': 'form-control'})
         }
-
