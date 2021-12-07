@@ -1,6 +1,5 @@
 import transliterate
 
-
 def get_slug(*args):
     tmp = cut_titles(*args)
     tmp2 = []
@@ -8,7 +7,8 @@ def get_slug(*args):
         if transliterate.detect_language(i) is None:
             tmp2.append(i)
         else:
-            tmp2.append(transliterate.translit(i, reversed=True))
+            tmp2.append(transliterate.slugify(i))
+
     return '-'.join(tmp2)
 
 
@@ -22,5 +22,3 @@ def cut_titles(*args):
         else:
             tmp.append(*n)
     return tmp
-
-

@@ -7,7 +7,7 @@ from .models import Post, Image, Item
 from .forms import LoginForm, RegistrationForm, PostForm, ItemForm, ImageForm
 from django.contrib.auth import authenticate, login
 
-from .templates.main.utils import get_slug
+from main.utils import get_slug
 
 menu = [
     {'title': 'Все категории', 'url': '/'},
